@@ -1,0 +1,5 @@
+loguru
+fastapi
+arrow
+duckduckgo-search
+uvicorn

@@ -16,8 +16,9 @@ run server cmd  python check_server.py
 ```
 
 ```
-crontab
+可定时任务来检查服务是否运行, 没有运行将自启
 
+crontab
 
 # * * * * * cd /home/ubuntu/work/duckgo_api;/home/ubuntu/.pyenv/shims/python check_server.py # check_server
 

@@ -29,7 +29,7 @@ http://localhost:9400/docs
 http://localhost:9400/redoc
 
 
-
+!!! 注意请求时  headers 里添加 cid  用来校验用户 可在配置文件里添加
 
 
 http://localhost:9400/api/v1/ddgo/search?keywords=啊对对对是什么梗&max_results=6

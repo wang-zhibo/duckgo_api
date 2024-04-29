@@ -1,8 +1,9 @@
-##  duckduckgo-api
+## async duckduckgo-api
 
 
 ```
 duckduckgo-api
+
 ```
 
 

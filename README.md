@@ -4,6 +4,8 @@
 ```
 duckduckgo-api
 
+异步
+
 ```
 
 

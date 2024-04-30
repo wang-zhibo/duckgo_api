@@ -33,16 +33,13 @@ http://localhost:9400/docs
 http://localhost:9400/redoc
 
 
-!!! 注意请求时  headers 里添加 cid  用来校验用户 可在配置文件里添加
 
 
-http://localhost:9400/api/v1/ddgo/search/news?keywords=麒麟9010&max_results=6
+http://localhost:9400/api/v1/ddgo/search/news?q=麒麟9010&max_results=6
 
 
 
-{
-    "code": 1,
-    "data": [
+[
         {
             "date": "2024-04-29T01:01:00+00:00",
             "title": "权威机构探秘华为麒麟9010：中国自己的第二代7nm!",
@@ -91,7 +88,6 @@ http://localhost:9400/api/v1/ddgo/search/news?keywords=麒麟9010&max_results=6
             "image": "https://inews.gtimg.com/news_bt/OWZXloCz9fAEMQ7hOGR5hTkIMpKhPu0VCrVbulM8dmt9kAA/1000",
             "source": "腾讯网"
         }
-    ]
-}
+]
 
 ```

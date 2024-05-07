@@ -33,6 +33,11 @@ http://localhost:9400/docs
 http://localhost:9400/redoc
 
 
+/search
+/search/answers
+/search/images
+/search/videos
+/search/news
 
 
 http://localhost:9400/api/v1/ddgo/search/news?q=麒麟9010&max_results=6

@@ -55,6 +55,10 @@ class DdgoFields(BaseModel):
     q: str          = Field(..., description="搜索关键词")
     max_results: int       = Field(..., description="返回数据数量")
 
+class DdgoChatFields(BaseModel):
+    q: str          = Field(..., description="chat内容")
+
+
 
 async def clean_k_max(item):
     max_results = 3
@@ -69,11 +73,38 @@ async def clean_k_max(item):
 async def is_valid_ddgo_cid(cid: str) -> bool:
     return True if cid in CID_LIST else False
 
+#### ddgo_chat ####
+
+@blueprint_v1.post("/ddgo/chat", tags=['ddgo'], description='ddgo_chat', summary='ddgo_chat')
+async def ddgo_chat_post(item: DdgoChatFields):
+    end_res = []
+    try:
+        q = item.q
+        results = await AsyncDDGS().achat(q, model='gpt-3.5')
+        end_res = results
+    except Exception as e:
+        logger.error(f"ddgo_chat error: {e}")
+    return end_res
+
+
+@blueprint_v1.get("/ddgo/chat", tags=['ddgo'], description='ddgo_chat', summary='ddgo_chat')
+async def ddgo_chat_get(q: str):
+    end_res = ""
+    try:
+        results = await AsyncDDGS().achat(q, model='gpt-3.5')
+        end_res = results
+    except Exception as e:
+        logger.error(f"ddgo_chat error: {e}")
+    return end_res
+
+
+#### ddgo_chat ####
+
 
 #### ddgo_search ####
 
 @blueprint_v1.post("/ddgo/search", tags=['ddgo'], description='ddgo_search', summary='ddgo_search')
-async def ddgo_search(item: DdgoFields):
+async def ddgo_search_post(item: DdgoFields):
     end_res = []
     try:
         q, max_results = await clean_k_max(item)
@@ -86,7 +117,7 @@ async def ddgo_search(item: DdgoFields):
 
 
 @blueprint_v1.get("/ddgo/search", tags=['ddgo'], description='ddgo_search', summary='ddgo_search')
-async def ddgo_search(q: str, max_results: int=3):
+async def ddgo_search_get(q: str, max_results: int = 3):
     end_res = []
     try:
         ddgs_gen = await AsyncDDGS().text(q, safesearch='Off', timelimit='y', backend="lite")
@@ -103,7 +134,7 @@ async def ddgo_search(q: str, max_results: int=3):
 #### ddgo_answers ####
 
 @blueprint_v1.post("/ddgo/search/answers", tags=['ddgo'], description='ddgo_answers', summary='ddgo_answers')
-async def search_answers(item: DdgoFields):
+async def search_answers_post(item: DdgoFields):
     end_res = []
     try:
         q, max_results = await clean_k_max(item)
@@ -116,7 +147,7 @@ async def search_answers(item: DdgoFields):
 
 
 @blueprint_v1.get("/ddgo/search/answers", tags=['ddgo'], description='ddgo_answers', summary='ddgo_answers')
-async def search_answers(q: str, max_results: int=3):
+async def search_answers_get(q: str, max_results: int = 3):
     end_res = []
     try:
         ddgs_gen = await AsyncDDGS().answers(q)
@@ -135,7 +166,7 @@ async def search_answers(q: str, max_results: int=3):
 
 
 @blueprint_v1.post("/ddgo/search/images", tags=['ddgo'], description='ddgo_images', summary='ddgo_images')
-async def search_images(item: DdgoFields):
+async def search_images_post(item: DdgoFields):
     end_res = []
     try:
         q, max_results = await clean_k_max(item)
@@ -148,7 +179,7 @@ async def search_images(item: DdgoFields):
 
 
 @blueprint_v1.get("/ddgo/search/images", tags=['ddgo'], description='ddgo_images', summary='ddgo_images')
-async def search_images(q: str, max_results: int=3):
+async def search_images_get(q: str, max_results: int = 3):
     end_res = []
     try:
         ddgs_gen = await AsyncDDGS().images(q, safesearch='Off', timelimit=None)
@@ -164,7 +195,7 @@ async def search_images(q: str, max_results: int=3):
 #### ddgo_videos ####
 
 @blueprint_v1.post("/ddgo/search/videos", tags=['ddgo'], description='ddgo_videos', summary='ddgo_videos')
-async def search_videos(item: DdgoFields):
+async def search_videos_post(item: DdgoFields):
     end_res = []
     try:
         q, max_results = await clean_k_max(item)
@@ -177,7 +208,7 @@ async def search_videos(item: DdgoFields):
 
 
 @blueprint_v1.get("/ddgo/search/videos", tags=['ddgo'], description='ddgo_videos', summary='ddgo_videos')
-async def search_videos(q: str, max_results: int=3):
+async def search_videos_get(q: str, max_results: int = 3):
     end_res = []
     try:
         ddgs_gen = await AsyncDDGS().videos(q, safesearch='Off', timelimit=None, resolution="high")
@@ -194,7 +225,7 @@ async def search_videos(q: str, max_results: int=3):
 #### ddgo_news ####
 
 @blueprint_v1.post("/ddgo/search/news", tags=['ddgo'], description='ddgo_news', summary='ddgo_news')
-async def search_news(item: DdgoFields):
+async def search_news_post(item: DdgoFields):
     end_res = []
     try:
         q, max_results = await clean_k_max(item)
@@ -207,7 +238,7 @@ async def search_news(item: DdgoFields):
 
 
 @blueprint_v1.get("/ddgo/search/news", tags=['ddgo'], description='ddgo_news', summary='ddgo_news')
-async def search_news(q: str, max_results: int=3):
+async def search_news_get(q: str, max_results: int = 3):
     end_res = []
     try:
         ddgs_gen = await AsyncDDGS().news(q, safesearch='Off', timelimit=None)

@@ -32,12 +32,20 @@ docs
 http://localhost:9400/docs
 http://localhost:9400/redoc
 
-
+/chat
 /search
 /search/answers
 /search/images
 /search/videos
 /search/news
+
+
+
+http://127.0.0.1:9400/api/v1/ddgo/chat?q=%E4%BD%A0%E6%98%AF%E4%BB%80%E4%B9%88%E6%A8%A1%E5%9E%8B 
+
+
+我是一个基于人工智能的语言模型。有什么可以帮助你的吗？
+
 
 
 http://localhost:9400/api/v1/ddgo/search/news?q=麒麟9010&max_results=6

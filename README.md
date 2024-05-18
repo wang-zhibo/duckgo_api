@@ -40,6 +40,7 @@ http://localhost:9400/redoc
 /search/news
 
 
+chat 默认使用  gpt-3.5
 
 http://127.0.0.1:9400/api/v1/ddgo/chat?q=%E4%BD%A0%E6%98%AF%E4%BB%80%E4%B9%88%E6%A8%A1%E5%9E%8B 
 

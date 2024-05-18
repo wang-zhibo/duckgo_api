@@ -42,11 +42,11 @@ http://localhost:9400/redoc
 
 chat 默认使用  gpt-3.5
 
-http://127.0.0.1:9400/api/v1/ddgo/chat?q=%E4%BD%A0%E6%98%AF%E4%BB%80%E4%B9%88%E6%A8%A1%E5%9E%8B 
+
+http://127.0.0.1:9400/api/v1/ddgo/chat?q=你可以做什么
 
 
-我是一个基于人工智能的语言模型。有什么可以帮助你的吗？
-
+"我可以回答问题、提供建议、讲故事、玩游戏，还可以和你聊天。有什么我可以帮助你的吗？"
 
 
 http://localhost:9400/api/v1/ddgo/search/news?q=麒麟9010&max_results=6

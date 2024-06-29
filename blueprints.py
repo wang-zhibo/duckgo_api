@@ -57,6 +57,7 @@ class DdgoFields(BaseModel):
 
 class DdgoChatFields(BaseModel):
     q: str          = Field(..., description="chat内容")
+    m: str          = Field(..., description="模型选择,gpt-3.5,claude-3-haiku,llama-3-70b,mixtral-8x7b")
 
 
 
@@ -70,6 +71,8 @@ async def clean_k_max(item):
     return q, max_results
 
 
+
+
 async def is_valid_ddgo_cid(cid: str) -> bool:
     return True if cid in CID_LIST else False
 
@@ -80,7 +83,9 @@ async def ddgo_chat_post(item: DdgoChatFields):
     end_res = []
     try:
         q = item.q
-        results = await AsyncDDGS().achat(q, model='gpt-3.5')
+        m = item.m
+        model = m if m else "gpt-3.5"
+        results = await AsyncDDGS().achat(q, model=model)
         end_res = results
     except Exception as e:
         logger.error(f"ddgo_chat error: {e}")
@@ -88,10 +93,11 @@ async def ddgo_chat_post(item: DdgoChatFields):
 
 
 @blueprint_v1.get("/ddgo/chat", tags=['ddgo'], description='ddgo_chat', summary='ddgo_chat')
-async def ddgo_chat_get(q: str):
+async def ddgo_chat_get(q: str, m: str):
     end_res = ""
     try:
-        results = await AsyncDDGS().achat(q, model='gpt-3.5')
+        model = m if m else "gpt-3.5"
+        results = await AsyncDDGS().achat(q, model=model)
         end_res = results
     except Exception as e:
         logger.error(f"ddgo_chat error: {e}")

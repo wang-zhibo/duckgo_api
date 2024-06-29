@@ -46,8 +46,10 @@ chat
 
 http://127.0.0.1:9400/api/v1/ddgo/chat?q=你可以做什么&m=lama-3-70b
 
-
 "我可以回答问题、提供建议、讲故事、玩游戏，还可以和你聊天。有什么我可以帮助你的吗？"
+
+
+同样可 post json 来请求
 
 
 http://localhost:9400/api/v1/ddgo/search/news?q=麒麟9010&max_results=6

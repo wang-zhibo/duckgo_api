@@ -42,9 +42,8 @@ http://localhost:9400/redoc
 
 chat 
 
-模型选择,gpt-3.5,claude-3-haiku,llama-3-70b,mixtral-8x7b
-
-http://127.0.0.1:9400/api/v1/ddgo/chat?q=你可以做什么&m=lama-3-70b
+模型选择,gpt-4o-mini,claude-3-haiku,llama-3.1-70b,mixtral-8x7b
+http://127.0.0.1:9400/api/v1/ddgo/chat?q=你可以做什么&m=lama-3.1-70b
 
 "我可以回答问题、提供建议、讲故事、玩游戏，还可以和你聊天。有什么我可以帮助你的吗？"
 

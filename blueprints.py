@@ -85,7 +85,7 @@ async def ddgo_chat_post(item: DdgoChatFields):
         q = item.q
         m = item.m
         model = m if m else "gpt-3.5"
-        results = DDGS().achat(q, model=model)
+        results = DDGS().chat(q, model=model)
         end_res = results
     except Exception as e:
         logger.error(f"ddgo_chat error: {e}")
@@ -97,7 +97,7 @@ async def ddgo_chat_get(q: str, m: str):
     end_res = ""
     try:
         model = m if m else "gpt-3.5"
-        results = DDGS().achat(q, model=model)
+        results = DDGS().chat(q, model=model)
         end_res = results
     except Exception as e:
         logger.error(f"ddgo_chat error: {e}")

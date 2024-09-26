@@ -57,7 +57,7 @@ class DdgoFields(BaseModel):
 
 class DdgoChatFields(BaseModel):
     q: str          = Field(..., description="chat内容")
-    m: str          = Field(..., description="模型选择,gpt-3.5,claude-3-haiku,llama-3-70b,mixtral-8x7b")
+    m: str          = Field(..., description="模型选择,gpt-4o-mini,claude-3-haiku,llama-3.1-70b,mixtral-8x7b")
 
 
 
@@ -84,7 +84,7 @@ async def ddgo_chat_post(item: DdgoChatFields):
     try:
         q = item.q
         m = item.m
-        model = m if m else "gpt-3.5"
+        model = m if m else "gpt-4o-mini"
         results = DDGS().chat(q, model=model)
         end_res = results
     except Exception as e:
@@ -96,7 +96,7 @@ async def ddgo_chat_post(item: DdgoChatFields):
 async def ddgo_chat_get(q: str, m: str):
     end_res = ""
     try:
-        model = m if m else "gpt-3.5"
+        model = m if m else "gpt-4o-mini"
         results = DDGS().chat(q, model=model)
         end_res = results
     except Exception as e:

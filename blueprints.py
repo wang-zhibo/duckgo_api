@@ -17,7 +17,7 @@ from fastapi import APIRouter, Request, responses, status, File, UploadFile, \
 from my_logger import MyLogger as Logger
 
 from itertools import islice
-from duckduckgo_search import AsyncDDGS
+from duckduckgo_search import AsyncDDGS, DDGS
 from pydantic import BaseModel, Field
 from config import CID_LIST
 
@@ -85,7 +85,7 @@ async def ddgo_chat_post(item: DdgoChatFields):
         q = item.q
         m = item.m
         model = m if m else "gpt-3.5"
-        results = await AsyncDDGS().achat(q, model=model)
+        results = DDGS().achat(q, model=model)
         end_res = results
     except Exception as e:
         logger.error(f"ddgo_chat error: {e}")
@@ -97,7 +97,7 @@ async def ddgo_chat_get(q: str, m: str):
     end_res = ""
     try:
         model = m if m else "gpt-3.5"
-        results = await AsyncDDGS().achat(q, model=model)
+        results = DDGS().achat(q, model=model)
         end_res = results
     except Exception as e:
         logger.error(f"ddgo_chat error: {e}")
@@ -114,7 +114,7 @@ async def ddgo_search_post(item: DdgoFields):
     end_res = []
     try:
         q, max_results = await clean_k_max(item)
-        ddgs_gen = await AsyncDDGS().text(q, safesearch='Off', timelimit='y', backend="lite")
+        ddgs_gen = DDGS().text(q, safesearch='Off', timelimit='y', backend="lite")
         results = [r for r in islice(ddgs_gen, max_results)]
         end_res = results
     except Exception as e:
@@ -126,7 +126,7 @@ async def ddgo_search_post(item: DdgoFields):
 async def ddgo_search_get(q: str, max_results: int = 3):
     end_res = []
     try:
-        ddgs_gen = await AsyncDDGS().text(q, safesearch='Off', timelimit='y', backend="lite")
+        ddgs_gen = DDGS().text(q, safesearch='Off', timelimit='y', backend="lite")
         results = [r for r in islice(ddgs_gen, max_results)]
         end_res = results
     except Exception as e:
@@ -144,7 +144,7 @@ async def search_answers_post(item: DdgoFields):
     end_res = []
     try:
         q, max_results = await clean_k_max(item)
-        ddgs_gen = await AsyncDDGS().answers(q)
+        ddgs_gen = DDGS().answers(q)
         results = [r for r in islice(ddgs_gen, max_results)]
         end_res = results
     except Exception as e:
@@ -156,7 +156,7 @@ async def search_answers_post(item: DdgoFields):
 async def search_answers_get(q: str, max_results: int = 3):
     end_res = []
     try:
-        ddgs_gen = await AsyncDDGS().answers(q)
+        ddgs_gen = DDGS().answers(q)
         results = [r for r in islice(ddgs_gen, max_results)]
         end_res = results
     except Exception as e:
@@ -176,7 +176,7 @@ async def search_images_post(item: DdgoFields):
     end_res = []
     try:
         q, max_results = await clean_k_max(item)
-        ddgs_gen = await AsyncDDGS().images(q, safesearch='Off', timelimit=None)
+        ddgs_gen = DDGS().images(q, safesearch='Off', timelimit=None)
         results = [r for r in islice(ddgs_gen, max_results)]
         end_res = results
     except Exception as e:
@@ -188,7 +188,7 @@ async def search_images_post(item: DdgoFields):
 async def search_images_get(q: str, max_results: int = 3):
     end_res = []
     try:
-        ddgs_gen = await AsyncDDGS().images(q, safesearch='Off', timelimit=None)
+        ddgs_gen = DDGS().images(q, safesearch='Off', timelimit=None)
         results = [r for r in islice(ddgs_gen, max_results)]
         end_res = results
     except Exception as e:
@@ -205,7 +205,7 @@ async def search_videos_post(item: DdgoFields):
     end_res = []
     try:
         q, max_results = await clean_k_max(item)
-        ddgs_gen = await AsyncDDGS().videos(q, safesearch='Off', timelimit=None, resolution="high")
+        ddgs_gen = DDGS().videos(q, safesearch='Off', timelimit=None, resolution="high")
         results = [r for r in islice(ddgs_gen, max_results)]
         end_res = results
     except Exception as e:
@@ -217,7 +217,7 @@ async def search_videos_post(item: DdgoFields):
 async def search_videos_get(q: str, max_results: int = 3):
     end_res = []
     try:
-        ddgs_gen = await AsyncDDGS().videos(q, safesearch='Off', timelimit=None, resolution="high")
+        ddgs_gen = DDGS().videos(q, safesearch='Off', timelimit=None, resolution="high")
         results = [r for r in islice(ddgs_gen, max_results)]
         end_res = results
     except Exception as e:
@@ -235,7 +235,7 @@ async def search_news_post(item: DdgoFields):
     end_res = []
     try:
         q, max_results = await clean_k_max(item)
-        ddgs_gen = await AsyncDDGS().news(q, safesearch='Off', timelimit=None)
+        ddgs_gen = DDGS().news(q, safesearch='Off', timelimit=None)
         results = [r for r in islice(ddgs_gen, max_results)]
         end_res = results
     except Exception as e:
@@ -247,7 +247,7 @@ async def search_news_post(item: DdgoFields):
 async def search_news_get(q: str, max_results: int = 3):
     end_res = []
     try:
-        ddgs_gen = await AsyncDDGS().news(q, safesearch='Off', timelimit=None)
+        ddgs_gen = DDGS().news(q, safesearch='Off', timelimit=None)
         results = [r for r in islice(ddgs_gen, max_results)]
         end_res = results
     except Exception as e:

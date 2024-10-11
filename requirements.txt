@@ -1,5 +1,5 @@
 loguru
 fastapi
 arrow
-duckduckgo-search
+duckduckgo-search==6.2.11
 uvicorn

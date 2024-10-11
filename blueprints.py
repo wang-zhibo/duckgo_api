@@ -114,8 +114,7 @@ async def ddgo_search_post(item: DdgoFields):
     end_res = []
     try:
         q, max_results = await clean_k_max(item)
-        ddgs_gen = DDGS().text(q, safesearch='Off', timelimit='y', backend="lite")
-        results = [r for r in islice(ddgs_gen, max_results)]
+        results = DDGS().text(q, safesearch='Off', timelimit='y', backend="lite", max_results=max_results)
         end_res = results
     except Exception as e:
         logger.error(f"ddgo_search error: {e}")
@@ -126,8 +125,7 @@ async def ddgo_search_post(item: DdgoFields):
 async def ddgo_search_get(q: str, max_results: int = 3):
     end_res = []
     try:
-        ddgs_gen = DDGS().text(q, safesearch='Off', timelimit='y', backend="lite")
-        results = [r for r in islice(ddgs_gen, max_results)]
+        results = DDGS().text(q, safesearch='Off', timelimit='y', backend="lite", max_results=max_results)
         end_res = results
     except Exception as e:
         logger.error(f"ddgo_search error: {e}")
@@ -144,7 +142,7 @@ async def search_answers_post(item: DdgoFields):
     end_res = []
     try:
         q, max_results = await clean_k_max(item)
-        ddgs_gen = DDGS().answers(q)
+        results = DDGS().answers(q)
         results = [r for r in islice(ddgs_gen, max_results)]
         end_res = results
     except Exception as e:
@@ -156,7 +154,7 @@ async def search_answers_post(item: DdgoFields):
 async def search_answers_get(q: str, max_results: int = 3):
     end_res = []
     try:
-        ddgs_gen = DDGS().answers(q)
+        results = DDGS().answers(q)
         results = [r for r in islice(ddgs_gen, max_results)]
         end_res = results
     except Exception as e:
@@ -176,8 +174,7 @@ async def search_images_post(item: DdgoFields):
     end_res = []
     try:
         q, max_results = await clean_k_max(item)
-        ddgs_gen = DDGS().images(q, safesearch='Off', timelimit=None)
-        results = [r for r in islice(ddgs_gen, max_results)]
+        results = DDGS().images(q, safesearch='Off', timelimit=None, max_results=max_results)
         end_res = results
     except Exception as e:
         logger.error(f"ddgo search images error: {e}")
@@ -188,8 +185,7 @@ async def search_images_post(item: DdgoFields):
 async def search_images_get(q: str, max_results: int = 3):
     end_res = []
     try:
-        ddgs_gen = DDGS().images(q, safesearch='Off', timelimit=None)
-        results = [r for r in islice(ddgs_gen, max_results)]
+        results = DDGS().images(q, safesearch='Off', timelimit=None, max_results=max_results)
         end_res = results
     except Exception as e:
         logger.error(f"ddgo search images error: {e}")
@@ -205,8 +201,7 @@ async def search_videos_post(item: DdgoFields):
     end_res = []
     try:
         q, max_results = await clean_k_max(item)
-        ddgs_gen = DDGS().videos(q, safesearch='Off', timelimit=None, resolution="high")
-        results = [r for r in islice(ddgs_gen, max_results)]
+        results = DDGS().videos(q, safesearch='Off', timelimit=None, resolution="high", max_results=max_results)
         end_res = results
     except Exception as e:
         logger.error(f"ddgo search videos error: {e}")
@@ -217,8 +212,7 @@ async def search_videos_post(item: DdgoFields):
 async def search_videos_get(q: str, max_results: int = 3):
     end_res = []
     try:
-        ddgs_gen = DDGS().videos(q, safesearch='Off', timelimit=None, resolution="high")
-        results = [r for r in islice(ddgs_gen, max_results)]
+        results = DDGS().videos(q, safesearch='Off', timelimit=None, resolution="high", max_results=max_results)
         end_res = results
     except Exception as e:
         logger.error(f"ddgo search videos error: {e}")
@@ -235,8 +229,7 @@ async def search_news_post(item: DdgoFields):
     end_res = []
     try:
         q, max_results = await clean_k_max(item)
-        ddgs_gen = DDGS().news(q, safesearch='Off', timelimit=None)
-        results = [r for r in islice(ddgs_gen, max_results)]
+        results = DDGS().news(q, safesearch='Off', timelimit=None, max_results=max_results)
         end_res = results
     except Exception as e:
         logger.error(f"ddgo search news error: {e}")
@@ -247,8 +240,7 @@ async def search_news_post(item: DdgoFields):
 async def search_news_get(q: str, max_results: int = 3):
     end_res = []
     try:
-        ddgs_gen = DDGS().news(q, safesearch='Off', timelimit=None)
-        results = [r for r in islice(ddgs_gen, max_results)]
+        results = DDGS().news(q, safesearch='Off', timelimit=None, max_results=max_results)
         end_res = results
     except Exception as e:
         logger.error(f"ddgo search news error: {e}")

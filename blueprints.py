@@ -17,7 +17,7 @@ from fastapi import APIRouter, Request, responses, status, File, UploadFile, \
 from my_logger import MyLogger as Logger
 
 from itertools import islice
-from duckduckgo_search import AsyncDDGS, DDGS
+from duckduckgo_search import DDGS
 from pydantic import BaseModel, Field
 from config import CID_LIST
 

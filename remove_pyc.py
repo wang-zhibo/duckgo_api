@@ -2,41 +2,45 @@
 # -*- coding: UTF-8 -*-
 
 import os
-import concurrent.futures
+import asyncio
+import aiofiles
 import fnmatch
+from pathlib import Path
 
 
-def find_pyc_files():
-    """生成器：查找所有 .pyc 文件路径"""
-    for root, _, filenames in os.walk(os.getcwd()):
+async def find_pyc_files():
+    """异步生成所有 .pyc 文件路径"""
+    for root, _, filenames in os.walk(Path.cwd()):
         for pyc_file in fnmatch.filter(filenames, '*.pyc'):
             yield os.path.join(root, pyc_file)
 
 
-def delete_file(file_path):
-    """删除单个文件"""
+async def delete_file(file_path):
+    """异步删除单个文件"""
     try:
-        os.remove(file_path)
-        print(f"已删除: {file_path}")
-        return 1
-    except OSError as e:
+        async with aiofiles.open(file_path, mode="r"):  # 检查文件是否存在
+            os.remove(file_path)
+            print(f"已删除: {file_path}")
+            return 1
+    except (OSError, FileNotFoundError) as e:
         print(f"删除失败: {file_path}, 错误: {e}")
         return 0
 
 
-def delete_pyc_files():
-    """多线程删除 .pyc 文件"""
-    total_deleted = 0
+async def delete_pyc_files():
+    """主协程：并发删除所有 .pyc 文件"""
+    pyc_files_deleted = 0
 
-    # 使用线程池进行并发删除
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        # 并行执行删除任务并统计删除的数量
-        results = executor.map(delete_file, find_pyc_files())
-        total_deleted = sum(results)
+    # 批量任务收集
+    delete_tasks = [delete_file(file_path) async for file_path in find_pyc_files()]
 
-    print(f"共删除 {total_deleted} 个 .pyc 文件" if total_deleted else "未找到 .pyc 文件")
+    if delete_tasks:
+        results = await asyncio.gather(*delete_tasks)
+        pyc_files_deleted = sum(results)
+
+    print(f"共删除 {pyc_files_deleted} 个 .pyc 文件" if pyc_files_deleted else "未找到 .pyc 文件")
 
 
 if __name__ == "__main__":
-    delete_pyc_files()
+    asyncio.run(delete_pyc_files())
 

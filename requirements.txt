@@ -3,3 +3,4 @@ fastapi
 arrow
 duckduckgo_search==7.1.0
 uvicorn
+pytz

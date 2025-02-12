@@ -10,6 +10,17 @@ duckduckgo-api
 
 
 ```
+docker 部署
+docker build -t duckgo_api .
+
+
+docker run -d -p 9400:9400 --name fastapi_duckgo_api duckgo_api
+
+
+```
+
+
+```
 install python pkg  cmd pip install -r requirements.txt
 run server cmd  python check_server.py
 

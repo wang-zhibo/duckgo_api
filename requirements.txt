@@ -1,6 +1,6 @@
 loguru
 fastapi
 arrow
-duckduckgo_search==8.0.1
+duckduckgo_search==8.0.2
 uvicorn
 pytz
